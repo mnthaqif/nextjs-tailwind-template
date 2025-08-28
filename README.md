@@ -2,6 +2,8 @@
 
 A modern, batteries‑included Next.js 14 + Tailwind CSS starter template focused on performance, DX (developer experience), accessibility, and clean architecture.
 
+> 📚 **Complete Tech Stack Documentation**: See [TECH_STACK.md](./TECH_STACK.md) for a comprehensive list of all technologies, dependencies, and setup instructions used in this template.
+
 ## ✨ Features
 
 - Next.js App Router (app/ directory)
@@ -14,7 +16,17 @@ A modern, batteries‑included Next.js 14 + Tailwind CSS starter template focuse
 - API route example (contact form endpoint stub)
 - Preconfigured for incremental enhancements (animations, analytics, etc.)
 
+## 🛠️ Tech Stack (Quick Overview)
+
+**Core**: Next.js 14 • React 18 • TypeScript 5 • Node.js 20  
+**Styling**: Tailwind CSS • PostCSS • Framer Motion • Lucide Icons  
+**Forms**: React Hook Form • Zod validation  
+**Tools**: ESLint • Prettier • Husky • pnpm
+
+👉 **[View Complete Tech Stack Documentation →](./TECH_STACK.md)**
+
 ## 🗂 Directory Structure (representative)
+
 ```
 app/
   layout.tsx             # Root layout (fonts, theme script, metadata)
@@ -38,6 +50,7 @@ postcss.config.js (or .cjs)
 tailwind.config.ts
 README.md
 ```
+
 (Your actual repo may have fewer/more files depending on which options have been added so far.)
 
 ## 🚀 Quick Start
@@ -61,21 +74,23 @@ pnpm dev
 ```
 
 Alternative package managers:
+
 - npm: `npm install` then `npm run dev`
 - yarn: `yarn` then `yarn dev`
 
 ## 🧞 Available Scripts
 
-| Script | Description |
-| ------ | ----------- |
-| `pnpm dev` | Start development server (hot reload) |
-| `pnpm build` | Create production build (`.next`) |
-| `pnpm start` | Run production server (after build) |
-| `pnpm lint` | Run ESLint (if configured) |
+| Script            | Description                                             |
+| ----------------- | ------------------------------------------------------- |
+| `pnpm dev`        | Start development server (hot reload)                   |
+| `pnpm build`      | Create production build (`.next`)                       |
+| `pnpm start`      | Run production server (after build)                     |
+| `pnpm lint`       | Run ESLint (if configured)                              |
 | `pnpm type-check` | Run TypeScript without emitting (add script if missing) |
-| `pnpm format` | Run Prettier (if configured) |
+| `pnpm format`     | Run Prettier (if configured)                            |
 
 Add missing scripts by editing `package.json`:
+
 ```json
 {
   "scripts": {
@@ -94,6 +109,7 @@ Add missing scripts by editing `package.json`:
 Color tokens are defined as CSS variables in `globals.css` inside `:root` (light) and `.dark` scopes. Tailwind references them via the config (e.g. `bg-background`, `text-foreground`).
 
 To adjust theme colors:
+
 1. Edit the HSL values in `globals.css`.
 2. (Optional) Extend `tailwind.config.ts` under `theme.extend.colors` for custom semantic aliases.
 3. Use the provided `<ThemeToggle />` component somewhere in a header or fixed position.
@@ -103,6 +119,7 @@ The theme is stored in `localStorage` under `lk-theme` and applied **before** hy
 ## 🌐 Metadata & SEO
 
 `site.config.ts` centralizes:
+
 - `name`, `description`
 - `url` (set this before production deployment)
 - `ogImage` (Open Graph image path)
@@ -113,15 +130,18 @@ Update those values; they flow into Next.js Metadata API and any custom `<SEO />
 ## 📬 Contact API Route
 
 `app/api/contact/route.ts` currently logs or stubs a response. To wire up email delivery:
+
 - Add an email provider (Resend, SendGrid, Postmark) SDK.
 - Store API keys in `.env.local` (never commit this file).
 - Replace the handler implementation to send mail / store leads.
 
 Example environment variables (add only what you need):
+
 ```
 RESEND_API_KEY=...
 CONTACT_RECIPIENT=you@example.com
 ```
+
 Access in the route via `process.env.RESEND_API_KEY`.
 
 ## 🔐 Environment Variables
@@ -129,6 +149,7 @@ Access in the route via `process.env.RESEND_API_KEY`.
 Create `.env.local` for secrets & config. Next.js auto-loads it. Public (exposed) variables must be prefixed with `NEXT_PUBLIC_`.
 
 Example:
+
 ```
 NEXT_PUBLIC_ANALYTICS_ID=abc123
 RESEND_API_KEY=... (server only)
@@ -137,10 +158,13 @@ RESEND_API_KEY=... (server only)
 ## 🧪 Quality (Lint, Types, Formatting)
 
 (If not yet added) consider adding a Git hook setup with Husky:
+
 ```bash
 pnpm dlx husky-init && pnpm install
 ```
+
 Then edit `.husky/pre-commit`:
+
 ```bash
 pnpm lint && pnpm type-check && pnpm format
 ```
@@ -150,6 +174,7 @@ Or add a GitHub Actions workflow to CI (ask and one can be generated for you).
 ## 🏗 Suggested GitHub Actions Workflow (optional)
 
 Basic `ci.yml` idea:
+
 ```yaml
 name: CI
 on: [push, pull_request]
@@ -161,18 +186,20 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
+          cache: "pnpm"
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
       - run: pnpm type-check
       - run: pnpm build
 ```
+
 (Ask and this can be committed automatically.)
 
 ## 🐳 Docker (optional)
 
 Add a `Dockerfile` (request one if you'd like it committed):
+
 ```Dockerfile
 # --- Builder stage ---
 FROM node:20-alpine AS builder
@@ -193,7 +220,9 @@ COPY --from=builder /app/public ./public
 EXPOSE 3000
 CMD ["node", "server.js"]
 ```
+
 Build & run:
+
 ```bash
 docker build -t nextjs-tailwind-template .
 docker run -p 3000:3000 nextjs-tailwind-template
@@ -202,6 +231,7 @@ docker run -p 3000:3000 nextjs-tailwind-template
 ## 🚀 Deployment
 
 ### Vercel (recommended)
+
 1. Push repo to GitHub (already done if you're reading this).
 2. Import the repository in Vercel.
 3. Set environment variables (if any) in the Vercel dashboard.
@@ -209,6 +239,7 @@ docker run -p 3000:3000 nextjs-tailwind-template
 5. Trigger a redeploy.
 
 ### Other Platforms
+
 - Docker/Kubernetes: Use the Dockerfile above.
 - Netlify: Use build command `pnpm build` & publish directory `.next` via Next adapter (or use Netlify Next.js runtime plugin).
 - Render / Railway: Start command `pnpm start` after build.
@@ -216,6 +247,7 @@ docker run -p 3000:3000 nextjs-tailwind-template
 ## 🧩 Extending the Template
 
 Potential enhancements you can request:
+
 - Header + navigation scaffold
 - Sitemap & robots.txt
 - Analytics (Plausible, Umami, PostHog)
@@ -229,16 +261,17 @@ Just open an issue or ask in chat to generate code.
 
 ## 🛠 Troubleshooting
 
-| Problem | Fix |
-| ------- | ---- |
+| Problem                       | Fix                                                                                                                   |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | Tailwind classes not applying | Verify `content` globs in `tailwind.config.ts` include `./app/**/*.{ts,tsx}` and `site.config.ts`. Re-run `pnpm dev`. |
-| Dark mode not changing | Ensure `<ThemeToggle />` is mounted and CSS variables differ between `:root` and `.dark`. |
-| Build fails on missing env | Provide required variables in `.env.local` or Vercel dashboard. |
-| Stale styles after edit | Sometimes Next caches; restart dev server or clear `.next` directory. |
+| Dark mode not changing        | Ensure `<ThemeToggle />` is mounted and CSS variables differ between `:root` and `.dark`.                             |
+| Build fails on missing env    | Provide required variables in `.env.local` or Vercel dashboard.                                                       |
+| Stale styles after edit       | Sometimes Next caches; restart dev server or clear `.next` directory.                                                 |
 
 ## 📄 License
 
 Choose a license (MIT recommended) and add a `LICENSE` file. Example MIT header:
+
 ```
 MIT License (c) 2024 Your Name
 ```
@@ -255,4 +288,5 @@ MIT License (c) 2024 Your Name
 Open an issue or start a discussion. Feel free to request new scaffolding (CI, Docker, validation, animations, etc.).
 
 ---
+
 Happy building! 🔧 If you want any of the optional files (CI workflow, Dockerfile, header, form validation), just ask and they can be added automatically.
